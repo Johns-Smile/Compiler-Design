@@ -1,0 +1,60 @@
+import pandas as pd
+import numpy as np
+
+weather_data = pd.read_csv('enjoysport.csv')
+
+weather_data
+
+l = list(weather_data.columns)
+
+print(l)
+
+x = np.array(weather_data)[:, :-1]
+y = np.array(weather_data)[:, -1]
+
+
+
+
+initial_hypo = ['%','%','%','%','%','%']
+for i, val in enumerate(y):
+  if val == 'yes':
+    initial_hypo = x[i]
+    break
+print(initial_hypo)
+
+def change(a, b):
+  for i in range(len(a)):
+    if(a[i] != b[i] and a[i] != '?' and b[i] != '?'):
+      a[i] = '?'
+  return a 
+  
+  
+  #For Find S algorithm, uncomment this and run this code snippet
+
+for i, rec in enumerate(data):
+    if res[i] == 'yes':
+      #print('*', rec, initial_hypo)
+      if not((initial_hypo == rec).all()):
+        initial_hypo = change(initial_hypo, rec)
+print('maximal specific hypothesis is',initial_hypo)
+
+
+
+general_hypothesis = [['?','?','?','?','?','?'],['?','?','?','?','?','?'],['?','?','?','?','?','?'],['?','?','?','?','?','?'],['?','?','?','?','?','?'],['?','?','?','?','?','?']]
+
+#For candidate elimination algorithm, use this code snippet
+for i, rec in enumerate(data):
+    if res[i] == 'yes':
+      #print('*', rec, initial_hypo)
+      if not((initial_hypo == rec).all()):
+        initial_hypo = change(initial_hypo, rec)
+    if res[i] == 'no':
+      for j in range(len(initial_hypo)):
+        print(initial_hypo[j])
+        if initial_hypo[j] != rec[j] and initial_hypo[j] != '?' and initial_hypo[j] != '%':
+          general_hypothesis[j][j] = initial_hypo[j]
+          
+
+print('maximal specific hypothesis is:', initial_hypo)
+print('minimal general hypothesis is:')
+print(np.array(general_hypothesis))
